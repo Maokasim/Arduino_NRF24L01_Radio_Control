@@ -14,7 +14,6 @@
 
 void setup()
 {
-  Serial.begin(9600);
   RadioSetup();
   SensorSetup();
   DisplaySetup();
@@ -25,5 +24,4 @@ void loop()
   int Throttle = ThrottleCount();
   int *telemetry = RadioTransmit(Throttle, AileronCount(), ElevatorCount(), RudderCount());
   DisplayInformation(Throttle, *telemetry, *(telemetry + 1), *(telemetry + 2));
-  Serial.println(*telemetry);
 }

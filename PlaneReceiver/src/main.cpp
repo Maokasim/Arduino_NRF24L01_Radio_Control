@@ -15,8 +15,6 @@
 
 void setup()
 {
-  Serial.begin(9600);
-
   RadioSetup();
   ControlSetup();
   mpu6050Setup();
@@ -25,7 +23,6 @@ void setup()
 
 void loop()
 {
-
   int Voltage = GetVoltage();
   int *Angles = GetAngles();
   int *ReceivedData;
