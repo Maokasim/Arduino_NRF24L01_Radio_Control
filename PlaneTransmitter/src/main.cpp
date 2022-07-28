@@ -23,7 +23,6 @@ void setup()
 void loop()
 {
   int Throttle = ThrottleCount();
-  // int TransmittedData[4] = {Throttle, AileronCount(), ElevatorCount(), RudderCount()};
   int *telemetry = RadioTransmit(Throttle, AileronCount(), ElevatorCount(), RudderCount());
   DisplayInformation(Throttle, *telemetry, *(telemetry + 1), *(telemetry + 2));
   Serial.println(*telemetry);
