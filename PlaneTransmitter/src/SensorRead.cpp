@@ -27,6 +27,7 @@ float PrepVoltage = 96; // preparing value for Voltage
 bool JoyButt1 = 0;
 
 bool BlueButt = 0;
+bool RedButt = 0;
 
 // -------------------- Variables --------------------
 
@@ -64,12 +65,18 @@ int ThrottleCount()
     // start of counting throttle
     ThrottlePrep = analogRead(Joy1Ypin);
     BlueButt = digitalRead(BlueButtPin);
+    RedButt = digitalRead(RedButtPin);
 
     JoyButt1 = digitalRead(Joy1ButtPin);
 
     if (BlueButt == 1)
     {
         Throttle = 0;
+    }
+
+    if (RedButt == 1)
+    {
+        Throttle = 50;
     }
 
     if (ThrottlePrep >= 600 && Throttle < 100)

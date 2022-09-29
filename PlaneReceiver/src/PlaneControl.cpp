@@ -58,7 +58,7 @@ void ControlSetup()
 
 void SetThrottle(int Throttle)
 {
-    ThrottleForMotor = map(Throttle, 0, 100, 800, 2300);
+    ThrottleForMotor = map(Throttle, 0, 100, 800, 2299);
     Motor.writeMicroseconds(ThrottleForMotor);
 }
 

@@ -38,7 +38,7 @@ void RadioSetup()
 
 int *RadioReceive(int Voltage, int Xangle, int Yangle)
 {
-  while (radio.available(&pipeNo))
+  if (radio.available(&pipeNo))
   {
     radio.read(&received_data, sizeof(received_data));
 

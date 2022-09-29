@@ -55,7 +55,7 @@ void DisplaySetup()
 void DisplayInformation(int Throttle, float Voltage, int Xangle, int Yangle)
 {
     // start of displaying throttle information
-    if (Throttle > 0 && Throttle <= 9)
+    if (Throttle >= 0 && Throttle <= 9)
     {
         lcd.setCursor(THRpos + 1, 0);
         lcd.print("%");

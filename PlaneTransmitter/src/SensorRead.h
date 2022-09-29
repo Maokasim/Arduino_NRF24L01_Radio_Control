@@ -25,6 +25,7 @@
 #define Joy2ButtPin 2
 
 #define BlueButtPin 4
+#define RedButtPin 5
 
 //-------------------- Pin define --------------------
 

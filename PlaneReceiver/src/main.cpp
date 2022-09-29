@@ -15,6 +15,7 @@
 
 void setup()
 {
+  Serial.begin(9600);
   RadioSetup();
   ControlSetup();
   mpu6050Setup();
