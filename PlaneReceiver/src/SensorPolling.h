@@ -18,28 +18,44 @@
 
 // -------------------- Libraries --------------------
 
-// -------------------- Functions --------------------
+class SensorPolling
+{
+    private:
+        //----------------- Objects -------------------
+            MPU6050 m_gyro;
+            Adafruit_INA219 m_VoltSensor;
+        //----------------- Objects -------------------
 
-/// Setup and offset calibration for mpu 6050 gyroscope
-void mpu6050Setup();
+        // -------------------- Variables --------------------
+            int m_Angles[2];
+            int m_Voltage;
+        // -------------------- Variables --------------------
 
-/// Setup for voltmeter ina219
-void ina219Setup();
+    public:
+        SensorPolling();
+        // -------------------- Functions --------------------
 
-/**
- * @brief Function for getting x and y model angle angles
- *
- * @return Pointer to Angles data (x, y)
- */
-int *GetAngles();
+        /// Setup and offset calibration for mpu 6050 gyroscope
+        void mpu6050Setup();
 
-/**
- * @brief Function for getting battery level in volts
- *
- * @return Voltage value in int form. E.g. Battery voltage 12.4V, Func return int 124
- */
-int GetVoltage();
+        /// Setup for voltmeter ina219
+        void ina219Setup();
 
-// -------------------- Functions --------------------
+        /**
+         * @brief Function for getting x and y model angle angles
+         *
+         * @return Pointer to Angles data (x, y)
+         */
+        int *GetAngles();
+
+        /**
+         * @brief Function for getting battery level in volts
+         *
+         * @return Voltage value in int form. E.g. Battery voltage 12.4V, Func return int 124
+         */
+        int GetVoltage();
+
+        // -------------------- Functions --------------------
+};
 
 #endif

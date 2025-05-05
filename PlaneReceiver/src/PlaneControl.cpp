@@ -7,33 +7,22 @@
 
 #include "PlaneControl.h"
 
-// -------------------- Objects --------------------
+PlaneControl::PlaneControl() : Motor(), AileronServoLeft(), AileronServoRight(), ElevatorServo(), RudderServo()
+{
+    m_Throttle = 0;
+    m_Aileron = 512;
+    m_Elevator = 512;
+    m_Rudder = 512;
 
-Servo Motor;
-Servo AileronServoLeft;
-Servo AileronServoRight;
-Servo ElevatorServo;
-Servo RudderServo;
+    m_ThrottleForMotor = 0;
 
-// -------------------- Objects --------------------
+    m_LeftAileronServoAngle = 90;
+    m_RightAileronServoAngle = 90;
+    m_ElevatorServoAngle = 90;
+    m_RudderServoAngle = 90;
+}
 
-// -------------------- Variables --------------------
-
-int Throttle = 0;
-int Aileron = 512;
-int Elevator = 512;
-int Rudder = 512;
-
-int ThrottleForMotor = 0;
-
-int LeftAileronServoAngle = 90;
-int RightAileronServoAngle = 90;
-int ElevatorServoAngle = 90;
-int RudderServoAngle = 90;
-
-// -------------------- Variables --------------------
-
-void ControlSetup()
+void PlaneControl::ControlSetup()
 {
 
     // -------------------- Setup for Servo --------------------
@@ -56,47 +45,47 @@ void ControlSetup()
     // -------------------- Setup for Motor --------------------
 }
 
-void SetThrottle(int Throttle)
+void PlaneControl::SetThrottle(int Throttle)
 {
-    ThrottleForMotor = map(Throttle, 0, 100, 800, 2299);
-    Motor.writeMicroseconds(ThrottleForMotor);
+    m_ThrottleForMotor = map(Throttle, 0, 100, 800, 2299);
+    Motor.writeMicroseconds(m_ThrottleForMotor);
 }
 
-void SetAilerons(int Aileron = 512)
+void PlaneControl::SetAilerons(int Aileron = 512)
 {
 
     if (Aileron <= 512 - AileronDeadZone || Aileron >= 512 + AileronDeadZone)
     {
-        LeftAileronServoAngle = map(Aileron, 0, 1023, 155, 25);
-        RightAileronServoAngle = map(Aileron, 0, 1023, 155, 25);
+        m_LeftAileronServoAngle = map(Aileron, 0, 1023, 155, 25);
+        m_RightAileronServoAngle = map(Aileron, 0, 1023, 155, 25);
     }
 
     if (Aileron >= 512 - AileronDeadZone && Aileron <= 512 + AileronDeadZone)
     {
-        LeftAileronServoAngle = AileronNormalAngle;
-        RightAileronServoAngle = AileronNormalAngle;
+        m_LeftAileronServoAngle = AileronNormalAngle;
+        m_RightAileronServoAngle = AileronNormalAngle;
     }
 
-    AileronServoLeft.write(LeftAileronServoAngle);
-    AileronServoRight.write(RightAileronServoAngle);
+    AileronServoLeft.write(m_LeftAileronServoAngle);
+    AileronServoRight.write(m_RightAileronServoAngle);
 }
 
-void SetElevator(int Elevator)
+void PlaneControl::SetElevator(int Elevator)
 {
     if (Elevator <= 512 - ElevatorDeadZone || Elevator >= 512 + ElevatorDeadZone)
-        ElevatorServoAngle = map(Elevator, 0, 1023, 160, 10);
+        m_ElevatorServoAngle = map(Elevator, 0, 1023, 160, 10);
     if (Elevator >= 512 - ElevatorDeadZone && Elevator <= 512 + ElevatorDeadZone)
-        ElevatorServoAngle = ElevatorNormalAngle;
+        m_ElevatorServoAngle = ElevatorNormalAngle;
 
-    ElevatorServo.write(ElevatorServoAngle);
+    ElevatorServo.write(m_ElevatorServoAngle);
 }
 
-void SetRudder(int Rudder)
+void PlaneControl::SetRudder(int Rudder)
 {
     if (Rudder <= 512 - RudderDeadZone || Rudder >= 512 + RudderDeadZone)
-        RudderServoAngle = map(Rudder, 0, 1023, 20, 160);
+        m_RudderServoAngle = map(Rudder, 0, 1023, 20, 160);
     if (Rudder >= 512 - RudderDeadZone && Rudder <= 512 + RudderDeadZone)
-        RudderServoAngle = RudderNormalAngle;
+        m_RudderServoAngle = RudderNormalAngle;
 
-    RudderServo.write(RudderServoAngle);
+    RudderServo.write(m_RudderServoAngle);
 }

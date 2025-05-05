@@ -45,38 +45,71 @@
 
 // -------------------- Define --------------------
 
-// -------------------- Functions --------------------
+class PlaneControl
+{
+    private:
 
-/// Function for Servos and Motor setup
-void ControlSetup();
+        // -------------------- Objects --------------------
+        Servo Motor;
+        Servo AileronServoLeft;
+        Servo AileronServoRight;
+        Servo ElevatorServo;
+        Servo RudderServo;
+        // -------------------- Objects --------------------
 
-/**
- * @brief Function for setting Motor RPM
- * @param Throttle Throttle value in 0 - 1023 format
- */
-void SetThrottle(int Throttle);
+        // -------------------- Variables --------------------
+        int m_Throttle;
+        int m_Aileron;
+        int m_Elevator;
+        int m_Rudder;
 
-/**
- * @brief Function for setting Ailerons angle
- *
- * @param Aileron Aileron angle in 0 - 1023 format
- */
-void SetAilerons(int Aileron);
+        int m_ThrottleForMotor;
 
-/**
- * @brief Function for setting Elevator angle
- *
- * @param Elevator Elevator angle in 0 - 1023 format
- */
-void SetElevator(int Elevator);
+        int m_LeftAileronServoAngle;
+        int m_RightAileronServoAngle;
+        int m_ElevatorServoAngle;
+        int m_RudderServoAngle;
+        // -------------------- Variables --------------------
 
-/**
- * @brief Function for setting Rudder angle
- *
- * @param Rudder Rudder angle in 0 - 1023 format
- */
-void SetRudder(int Rudder);
 
-// -------------------- Functions --------------------
+    public:
+        PlaneControl();
+        // -------------------- Functions --------------------
+
+        /// Function for Servos and Motor setup
+        void ControlSetup();
+
+        /**
+         * @brief Function for setting Motor RPM
+         * @param Throttle Throttle value in 0 - 1023 format
+         */
+        void SetThrottle(int Throttle);
+
+        /**
+         * @brief Function for setting Ailerons angle
+         *
+         * @param Aileron Aileron angle in 0 - 1023 format
+         */
+        void SetAilerons(int Aileron);
+
+        /**
+         * @brief Function for setting Elevator angle
+         *
+         * @param Elevator Elevator angle in 0 - 1023 format
+         */
+        void SetElevator(int Elevator);
+
+        /**
+         * @brief Function for setting Rudder angle
+         *
+         * @param Rudder Rudder angle in 0 - 1023 format
+         */
+        void SetRudder(int Rudder);
+
+        // -------------------- Functions --------------------
+
+
+};
+
 
 #endif

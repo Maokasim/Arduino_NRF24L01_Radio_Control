@@ -47,21 +47,41 @@
 
 // -------------------- NRF24L01 Settings --------------------
 
-// -------------------- Functions ---------------------
+class NRF24Receiver
+{
+    private:
+        RF24 radio; // Create module for Arduino
+        // -------------------- Variables --------------------
+        byte m_pipeNo;
+        byte m_address[6][6]; // possible pipe number
 
-/// RadioSetup is function for NRF24L01 module setup it`s include some parameters which should be set any time module reboot
-void RadioSetup();
+        int m_received_data[4]; // Received data array
+        int m_telemetry[3];     // Telemetry array
+        bool m_RadioStatus;
+        int* data_ptr;
+        int m_error;
+        // -------------------- Variables --------------------
 
-/**
- * @brief RadioReceive is function for information receive
- *
- * @param Voltage Value for battery voltage level,
- * @param Xangle Value for X rotation angle
- * @param Yangle Value for Y rotation angle
- * @return Pointer to received data
- */
-int *RadioReceive(int Voltage, int Xangle, int Yangle);
 
-// -------------------- Functions ---------------------
+    public:
+        NRF24Receiver();
+
+        // -------------------- Functions ---------------------
+        /// RadioSetup is function for NRF24L01 module setup it`s include some parameters which should be set any time module reboot
+        void RadioSetup();
+
+        /**
+         * @brief RadioReceive is function for information receive
+         *
+         * @param Voltage Value for battery voltage level,
+         * @param Xangle Value for X rotation angle
+         * @param Yangle Value for Y rotation angle
+         * @return Pointer to received data
+         */
+        int *RadioReceive(int Voltage, int Xangle, int Yangle);
+
+        bool RadioConnected();
+        // -------------------- Functions ---------------------
+};
 
 #endif

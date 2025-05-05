@@ -7,46 +7,37 @@
 
 #include "SensorPolling.h"
 
-//----------------- Objects -------------------
+SensorPolling::SensorPolling() : m_gyro(Wire), m_VoltSensor()
+{
+    m_Angles[0] = 99;
+    m_Angles[1] = 99;
+    m_Voltage = 99;
+}
 
-MPU6050 mpu6050(Wire);
-
-Adafruit_INA219 ina219;
-
-//----------------- Objects -------------------
-
-// -------------------- Variables --------------------
-
-int Angles[2];
-
-int Voltage = 0;
-
-// -------------------- Variables --------------------
-
-void mpu6050Setup()
+void SensorPolling::mpu6050Setup()
 {
     Wire.begin();
-    mpu6050.begin();
-    mpu6050.calcGyroOffsets(true);
+    m_gyro.begin();
+    m_gyro.calcGyroOffsets(true);
 }
 
-void ina219Setup()
+void SensorPolling::ina219Setup()
 {
-    ina219.begin();
+    m_VoltSensor.begin();
 }
 
-int *GetAngles()
+int* SensorPolling::GetAngles()
 {
-    mpu6050.update();
-    Angles[0] = mpu6050.getAngleX();
-    Angles[1] = mpu6050.getAngleY();
+    m_gyro.update();
+    m_Angles[0] = m_gyro.getAngleX();
+    m_Angles[1] = m_gyro.getAngleY();
 
-    return Angles;
+    return m_Angles;
 }
 
-int GetVoltage()
+int SensorPolling::GetVoltage()
 {
-    Voltage = ina219.getBusVoltage_V() * 10;
+    m_Voltage = m_VoltSensor.getBusVoltage_V() * 10;
 
-    return Voltage;
+    return m_Voltage;
 }
