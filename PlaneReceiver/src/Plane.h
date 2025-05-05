@@ -15,9 +15,9 @@
 class Plane
 {
     private:
-        int Voltage;
-        int *Angles;
-        int *ReceivedData;
+        int m_Voltage;
+        int* m_Angles_ptr;
+        int* m_ReceivedData_ptr;
 
         SensorPolling sens_pol;
         PlaneControl plane_ctrl;

@@ -2,7 +2,7 @@
 
 Plane::Plane() : sens_pol(), plane_ctrl(), radio()
 {
-    Voltage = 0;
+    m_Voltage = 0;
 }
 
 void Plane::PlaneSetup()
@@ -28,27 +28,16 @@ void Plane::PlaneSetup()
 void Plane::PlaneLoop()
 {
 
-    Voltage = sens_pol.GetVoltage();
-    Angles = sens_pol.GetAngles();
-    if(abs(*Angles) >= critical_angle ||  abs(*Angles + 1) >= critical_angle)
+    m_Voltage = sens_pol.GetVoltage();
+    m_Angles_ptr = sens_pol.GetAngles();
+    if(abs(*m_Angles_ptr) >= critical_angle ||  abs(*m_Angles_ptr + 1) >= critical_angle)
     {
         Serial.println((String(millis())+ " | " +"Attention Critical angle"));
     }
-    ReceivedData = radio.RadioReceive(Voltage, *Angles, *(Angles + 1));
-    if(ReceivedData == nullptr)
-    {
-        if(millis()%500 == 0)
-        {
-            Serial.println((String(millis())+ " | " +"FATAL ERROR NO RADIO SIGNAL"));
-        }
-        plane_ctrl.SetThrottle(0);
-        plane_ctrl.SetAilerons(512);
-        plane_ctrl.SetElevator(512);
-        plane_ctrl.SetRudder(512);
-    }else{
-        plane_ctrl.SetThrottle(*ReceivedData);
-        plane_ctrl.SetAilerons(*(ReceivedData + 1));
-        plane_ctrl.SetElevator(*(ReceivedData + 2));
-        plane_ctrl.SetRudder(*(ReceivedData + 3));
-    }
+    m_ReceivedData_ptr = radio.RadioReceive(m_Voltage, *m_Angles_ptr, *(m_Angles_ptr + 1));
+    plane_ctrl.SetThrottle(*m_ReceivedData_ptr);
+    plane_ctrl.SetAilerons(*(m_ReceivedData_ptr + 1));
+    plane_ctrl.SetElevator(*(m_ReceivedData_ptr + 2));
+    plane_ctrl.SetRudder(*(m_ReceivedData_ptr + 3));
+
 }

@@ -44,15 +44,9 @@ int* NRF24Receiver::RadioReceive(int Voltage, int Xangle, int Yangle)
     m_telemetry[2] = Yangle;
 
     radio.writeAckPayload(m_pipeNo, &m_telemetry, sizeof(m_telemetry)); // send telemetry
-    data_ptr = m_received_data;
-    m_error = 0;
   }
-  else{
-    m_error++;
-  }
-  if (m_error > 10) data_ptr = nullptr;
 
-  return data_ptr;
+  return m_received_data;
 }
 
 bool NRF24Receiver::RadioConnected()

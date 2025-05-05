@@ -58,7 +58,6 @@ class NRF24Receiver
         int m_received_data[4]; // Received data array
         int m_telemetry[3];     // Telemetry array
         bool m_RadioStatus;
-        int* data_ptr;
         int m_error;
         // -------------------- Variables --------------------
 
